@@ -30,11 +30,14 @@ public class LgCommandReceiver extends BroadcastReceiver implements CommandRecei
 
 			String[] packetInfo = intent.getStringArrayExtra("PACKET");
 
+
 			if (packetInfo.length == 2) {
 
 				LgCommand c = LgCommand.valueOf(packetInfo[0]);
 				String address = packetInfo[1];
 				int id = intent.getIntExtra("ID", 0);
+				String data = intent.getStringExtra("DATA");
+				c.setData(data);
 				LgPacket packet = new LgPacket(c, new LgMonitorAddress(address, id));
 				new ServerTask().execute(packet);
 			}

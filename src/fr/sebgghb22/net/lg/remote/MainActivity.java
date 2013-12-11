@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
 		final EditText address = (EditText) findViewById(R.id.address);
 		final EditText idText = (EditText) findViewById(R.id.textId);
 
+
 		Button power = (Button) findViewById(R.id.powerButton);
 		power.setOnClickListener(new View.OnClickListener() {
 
@@ -34,8 +35,9 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 
 				Intent commandIntent = new Intent(LgCommandReceiver.COMMANDMSG);
-				commandIntent.putExtra("PACKET", new String[] { LgCommand.POWERON.name(), address.getText().toString() });
+				commandIntent.putExtra("PACKET", new String[] { LgCommand.POWER.name(), address.getText().toString() });
 				commandIntent.putExtra("ID", Integer.valueOf(idText.getText().toString()));
+				commandIntent.putExtra("DATA", "01");
 				sendBroadcast(commandIntent);
 			}
 		});
@@ -47,8 +49,9 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 
 				Intent commandIntent = new Intent(LgCommandReceiver.COMMANDMSG);
-				commandIntent.putExtra("PACKET", new String[] { LgCommand.POWEROFF.name(), address.getText().toString() });
+				commandIntent.putExtra("PACKET", new String[] { LgCommand.POWER.name(), address.getText().toString() });
 				commandIntent.putExtra("ID", Integer.valueOf(idText.getText().toString()));
+				commandIntent.putExtra("DATA", "00");
 				sendBroadcast(commandIntent);
 			}
 		});
